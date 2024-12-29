@@ -57,4 +57,5 @@ def login():
     return jsonify({"message": "Login successful", "token": "mock-jwt-token"}), 200
 
 if __name__ == '__main__':
+    db.create_all()
     app.run(debug=True)
