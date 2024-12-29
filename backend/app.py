@@ -35,12 +35,16 @@ def login():
     email = data.get('email')
     password = data.get('password')
 
-    if email not in users or not check_password_hash(users[email], password):
-        return jsonify({"message": "Invalid credentials"}), 401
+    # Check if user exists
+    if email not in users:
+        return jsonify({"error": "Invalid email or password"}), 401
 
-    # Dummy token (use JWT in production)
-    token = "mock-token"
-    return jsonify({"token": token}), 200
+    # Verify password
+    if not check_password_hash(users[email], password):
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    # Successful login
+    return jsonify({"message": "Login successful", "token": "mock-jwt-token"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
