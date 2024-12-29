@@ -82,4 +82,6 @@ def protected():
     return jsonify({"message": f"Hello, {current_user}!"}), 200
 
 if __name__ == '__main__':
+    if os.getenv('FLASK_ENV') == 'development':
+        db.create_all()
     app.run(debug=True)
