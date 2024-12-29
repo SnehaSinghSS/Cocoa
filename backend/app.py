@@ -22,7 +22,6 @@ db = SQLAlchemy(app)
 
 # Configure JWT
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'default-secret-key')
-app.config['JWT_SECRET_KEY'] = 'your-secret-key'  # Change this to a strong secret key
 jwt = JWTManager(app)
 
 # Define User model
