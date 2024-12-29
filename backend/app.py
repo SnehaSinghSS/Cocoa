@@ -19,7 +19,15 @@ def signup():
     data = request.json
     email = data.get('email')
     password = data.get('password')
-    return jsonify({"message": f"User {email} signed up successfully"}), 200
+
+    # Check if the email already exists
+    if email in users:
+        return jsonify({"error": "Email already in use"}), 400
+
+    # Hash the password and save the user
+    hashed_password = generate_password_hash(password)
+    users[email] = hashed_password
+    return jsonify({"message": "Signup successful"}), 200
 
 @app.route('/api/login', methods=['POST'])
 def login():
